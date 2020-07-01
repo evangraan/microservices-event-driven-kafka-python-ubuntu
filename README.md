@@ -169,4 +169,4 @@ pip install psycopg2
 * Instrumentation with a dashboard
 
 # Demo
-You can see the services with kafka in action here:  
+You can see the services with kafka in action here: https://www.dropbox.com/s/zzytqvw6cao6ezj/hospital-demo.mov?dl=0 
