@@ -3,7 +3,7 @@
 This repository contains a simple event-driven hospital scheduling system using kafka, postgresql and python on Ubuntu
 
 The state machines are simple:
-* The hospital has 2 floors with 2 rooms each, designated A1-4 and B1-4
+* The hospital has 2 floors with 3 rooms each, designated A1-3 and B1-3
 * The hospital employs 2 nurses, one doctor, 2 porters and 2 cleaners
 * A generator creates a patient every 5 seconds
 * The hospital admissions tries to book a room for the patient. If no rooms are available, the patient is referred to another hostpital
@@ -16,7 +16,7 @@ The state machines are simple:
 * Once a patient has been seen, a porter is scheduled to take the patient to the hospital exit
 * If a porter is not available, the patient is placed on a waiting list
 * A scheduled porter escorts the patient to the hospital exit. On arrival there, a cleaner is scheduled to clean the room
-* Once a room has been cleaned, the room becomes avaialable for a new patient
+* Once a room has been cleaned, the room becomes available for a new patient
 
 The postgress database only keeps state. The following microservices perform duties:
 * cleaner_pool.py
@@ -30,80 +30,6 @@ Each can be run independently using:
 cd service-name
 source venv/bin/activate
 python service-name.py
-```
-
-# Postgres
-## Installation on Ubuntu
-```
-sudo apt-get install wget ca-certificates
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
-sudo apt-get update
-sudo apt-get -y install postgresql postgresql-contrib
-sudo su - postgres
-```
-
-## User and role
-```
-sudo adduser kafka
-sudo su - kafka
-kafka=# CREATE ROLE kafka WITH LOGIN CREATEDB ENCRYPTED PASSWORD 'R!Z::x4Q7XrvTBC~';
-kafka=# GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO kafka
-kafka=# \q
-createdb kafka 
-```
-
-## Serve to all IPs
-```
-sudo vi /etc/postgresql/12/main/postgresql.conf
-    listen_addresses = '0.0.0.0'
-sudo service postgresql restart
-```
-
-## Ensure your desired has access from your remote IP, e.g.
-```
-vi /etc/postgresql/12/main/pg_hba.conf
-    host  all  all  192.168.1.178/24  trust
-```
-
-## Ensure you can access the database and tables from the command line:
-
-```
-psql -U postgres -h 192.168.1.230 kafka
-psql (12.3)
-SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
-Type "help" for help.
-
-kafka=# \dt;
-       List of relations
- Schema | Name  | Type  | Owner 
---------+-------+-------+-------
- public | rooms | table | kafka
-(1 row)
-
-kafka=# select * from rooms;
- id | name | occupied 
-----+------+----------
-  1 | A1   | f
-  2 | A2   | f
-  3 | A3   | f
-  4 | B1   | f
-  5 | B2   | f
-  6 | B3   | f
-(6 rows)
-```
-
-## Managing
-
-* Install pgadmin to log into and manage the database.
-* Run pgadmin
-* Browse to http://127.0.0.1:52626/browser/#
-
-## Bootstrapping the database
-```
-cd hospital_administration
-cd orm
-python bootstrap.py
 ```
 
 # kafka
@@ -148,6 +74,79 @@ bin/kafka-topics.sh --zookeeper 192.168.1.230:2181 --delete --topic patients
 bin/kafka-topics.sh --zookeeper 192.168.1.230:2181 --delete --topic cleaners
 bin/kafka-topics.sh --zookeeper 192.168.1.230:2181 --delete --topic medical
 bin/kafka-topics.sh --zookeeper 192.168.1.230:2181 --delete --topic porters
+```
+
+# Postgres
+## Installation on Ubuntu
+```
+sudo apt-get install wget ca-certificates
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+sudo apt-get update
+sudo apt-get -y install postgresql postgresql-contrib
+sudo su - postgres
+```
+
+## User and role
+```
+sudo adduser kafka
+sudo su - kafka
+kafka=# CREATE ROLE kafka WITH LOGIN CREATEDB ENCRYPTED PASSWORD 'R!Z::x4Q7XrvTBC~';
+kafka=# GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO kafka
+kafka=# \q
+createdb kafka 
+```
+
+## Serve to all IPs
+```
+sudo vi /etc/postgresql/12/main/postgresql.conf
+    listen_addresses = '0.0.0.0'
+sudo service postgresql restart
+```
+
+## Ensure you have access from your remote IP, e.g.
+```
+vi /etc/postgresql/12/main/pg_hba.conf
+    host  all  all  192.168.1.178/24  trust
+```
+
+## Ensure you can access the database and tables from the command line:
+
+```
+psql -U postgres -h 192.168.1.230 kafka
+psql (12.3)
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+kafka=# \dt;
+       List of relations
+ Schema | Name  | Type  | Owner 
+--------+-------+-------+-------
+ public | rooms | table | kafka
+(1 row)
+
+kafka=# select * from rooms;
+ id | name | occupied 
+----+------+----------
+  1 | A1   | f
+  2 | A2   | f
+  3 | A3   | f
+  4 | B1   | f
+  5 | B2   | f
+  6 | B3   | f
+(6 rows)
+```
+
+## Managing
+
+* Install pgadmin to log into and manage the database.
+* Run pgadmin
+* Browse to http://127.0.0.1:52626/browser/#
+
+## Bootstrapping the database
+```
+cd orm
+python bootstrap.py
 ```
 
 # Notes
