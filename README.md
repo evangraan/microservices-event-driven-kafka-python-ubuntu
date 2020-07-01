@@ -39,7 +39,7 @@ The architecture is fully decoupled, with independent services producing and con
 ![Micro-services event-driven architecture](https://github.com/evangraan/hospital-scheduling-microservices-event-driven-kafka-python-ubuntu/blob/master/architecture.png)
 
 # Database schema
-![schema](https://github.com/evangraan/hospital-scheduling-microservices-event-driven-kafka-python-ubuntu/blob/master/schema.md)
+[schema](schema.md)
 
 # kafka
 Note: replace localhost with the host of yoru kafke instance
