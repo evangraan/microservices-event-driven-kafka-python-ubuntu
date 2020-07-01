@@ -166,6 +166,7 @@ pip install psycopg2
 * there should be proper one-to-many relationships where appropriate between tables
 * Testing, preferably BDD using behave
 * Instrumentation with a dashboard
+* Use configuration files for kafka host, IP, postgres host, port, database and credentials
 
 # Demo
 You can see the services with kafka in action here: https://www.dropbox.com/s/zzytqvw6cao6ezj/hospital-demo.mov?dl=0 
