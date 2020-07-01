@@ -41,6 +41,9 @@ The architecture is fully decoupled, with independent services producing and con
 # Database schema
 [schema](schema.md)
 
+# Demo
+You can see the services with kafka in action here: https://www.dropbox.com/s/zzytqvw6cao6ezj/hospital-demo.mov?dl=0 
+
 # kafka
 Note: replace localhost with the host of yoru kafke instance
 
@@ -176,6 +179,3 @@ pip install psycopg2
 * Testing, preferably BDD using behave
 * Instrumentation with a dashboard
 * Use configuration files for kafka host, IP, postgres host, port, database and credentials
-
-# Demo
-You can see the services with kafka in action here: https://www.dropbox.com/s/zzytqvw6cao6ezj/hospital-demo.mov?dl=0 
