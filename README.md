@@ -36,7 +36,7 @@ python service-name.py
 
 The architecture is fully decoupled, with independent services producing and consuming messages using kafka as the event bus.
 
-![Micro-services event-driven architecture](https://github.com/evangraan/hospital-scheduling-microservices-event-driven-kafka-python-ubuntu/blob/master/architecure.png)
+![Micro-services event-driven architecture](https://github.com/evangraan/hospital-scheduling-microservices-event-driven-kafka-python-ubuntu/blob/master/architecture.png)
 
 # kafka
 Note: replace localhost with the host of yoru kafke instance
