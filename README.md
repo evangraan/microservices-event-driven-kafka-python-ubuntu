@@ -47,7 +47,7 @@ You can see the services with kafka in action here: https://www.dropbox.com/s/zz
 
 
 # kafka
-Note: replace localhost with the host of yoru kafke instance
+Note: replace localhost with the host of your kafka instance
 
 ## Installing
 For this prototype I run kafka on Ubuntu 18.04 (ensure JDK is installed):
