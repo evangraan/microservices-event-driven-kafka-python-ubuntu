@@ -34,7 +34,7 @@ html5lib==1.0.1
 idna==2.8
 importlib-metadata==1.6.0
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 kafka-python==2.0.1
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.0
