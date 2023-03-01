@@ -41,11 +41,6 @@ The architecture is fully decoupled, with independent services producing and con
 # Database schema
 [schema](schema.md)
 
-# Demo
-You can see the services with kafka in action here: https://www.dropbox.com/s/zzytqvw6cao6ezj/hospital-demo.mov?dl=0 
-[![Demo](hospital-demo.gif)](https://www.dropbox.com/s/zzytqvw6cao6ezj/hospital-demo.mov?dl=0)
-
-
 # kafka
 Note: replace localhost with the host of your kafka instance
 
